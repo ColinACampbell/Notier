@@ -1,6 +1,7 @@
 package com.VocetSoft.Notier.FXML;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -8,12 +9,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DataFormat;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Stack;
 
 public class MainStageController implements Initializable {
 
@@ -21,10 +25,31 @@ public class MainStageController implements Initializable {
     private String contents;
     @FXML private Label label_fileUrl;
     @FXML private TextArea textArea;
+    private Stack<String> history = new Stack<>();
+
+    private Clipboard clipboard = Clipboard.getSystemClipboard();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+    }
+
+    @FXML
+    public void copyText(ActionEvent event)
+    {
+        String selectedText = textArea.getSelectedText();
+        System.out.print(selectedText);
+        ClipboardContent clipboardContent = new ClipboardContent();
+        clipboardContent.putString(selectedText);
+        clipboard.setContent(clipboardContent);
+    }
+
+    @FXML
+    public void pasteText(ActionEvent event)
+    {
+       String content = clipboard.getString();
+       System.out.println(content);
+       textArea.appendText(content);
     }
 
     @FXML
@@ -54,10 +79,17 @@ public class MainStageController implements Initializable {
 
     }
 
+    // Save file is meant to save file with contents that already exists
     @FXML
     public void saveFile(ActionEvent e)
     {
-        overWriteFile(this.file);
+        if (file == null)
+        {
+            saveAs(new ActionEvent());
+        } else
+        {
+            overWriteFile(this.file);
+        }
     }
 
 
@@ -138,6 +170,12 @@ public class MainStageController implements Initializable {
         {
             e.printStackTrace();
         }
+    }
+
+    void trackHistory(Event event)
+    {
+        String content = textArea.getText();
+        history.push(content);
     }
 
 

@@ -12,6 +12,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.*;
@@ -172,10 +173,11 @@ public class MainStageController implements Initializable {
         }
     }
 
-    void trackHistory(Event event)
+    void trackHistory(KeyEvent event)
     {
         String content = textArea.getText();
         history.push(content);
+        System.out.print("Text Tracked");
     }
 
 

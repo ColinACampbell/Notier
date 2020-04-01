@@ -32,7 +32,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <TextArea fx:id="textArea" layoutY="56.0" prefHeight="344.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0" />
+      <TextArea fx:id="textArea" layoutY="56.0" onKeyReleased="#trackHistory" prefHeight="344.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0" />
       <Label fx:id="label_fileUrl" layoutX="14.0" layoutY="32.0" onKeyTyped="#updateGUI" text="No File Open" textFill="#978f8f" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="32.0" />
    </children>
 </AnchorPane>
